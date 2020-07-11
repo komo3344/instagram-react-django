@@ -8,9 +8,8 @@ import AccountsRoutes from './accounts';
 function Root() {
     return (
         <AppLayout>
-            최상위 컴포넌트
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/" component={About} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
             <Route path="/accounts" component={AccountsRoutes} />
         </AppLayout>
     )

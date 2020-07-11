@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios'
-import Post from 'components/Post'
+import Post from './Post'
 const apiUrl = "http://localhost:8000/api/posts/"
 
 function PostList() {
@@ -20,7 +20,6 @@ function PostList() {
     }, []);
     return (
         <div>
-            <h1>PostList </h1>
             {postList.map(post => {
                  return <Post post={post} key={post.id} />
             })}
