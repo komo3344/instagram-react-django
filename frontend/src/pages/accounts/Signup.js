@@ -6,13 +6,13 @@ import { useHistory } from 'react-router-dom';
 
 export default function Signup() {
     const history = useHistory();
-    const [fieldsErrors, setFieldsErrors] = useState({});
+    const [fieldErrors, setFieldErrors] = useState({});
 
     const onFinish = (values) => {
         async function fn(){
             const {username, password} = values
 
-            setFieldsErrors({});
+            setFieldErrors({});
 
             const data = {username, password}
             try {
@@ -35,6 +35,7 @@ export default function Signup() {
 
                     const { data: fieldsErrorMessages} = error.response // 서버에서 받은 에러메시지 표시
                     // fieldsErrorMessages => { username: ['m1', 'm2'], password: [] }
+                    setFieldErrors(
                     Object.entries(fieldsErrorMessages).reduce((acc, [fieldName, errors]) => {
                         // errors: ['m1', 'm2'].join(" ") => "m1 m2"
                         acc[fieldName] = {
@@ -42,7 +43,7 @@ export default function Signup() {
                             help: errors.join(" "),
                         }
                         return acc;
-                    }, {});
+                    }, {}));
                 }
             }
             
@@ -66,7 +67,7 @@ export default function Signup() {
                     { min: 5, message: '5글자 이상 입력해주세요.'}
                 ]}
                 hasFeedback
-                {...fieldsErrors.username}
+                {...fieldErrors.username}
             >
                 <Input />
             </Form.Item>
@@ -75,7 +76,7 @@ export default function Signup() {
                 label="Password"
                 name="password"
                 rules={[{ required: true, message: 'Please input your password!' }]}
-                {...fieldsErrors.username}
+                {...fieldErrors.password}
             >
                 <Input.Password />
             </Form.Item>
