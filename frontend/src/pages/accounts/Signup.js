@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {Form, Input, Button, notification} from 'antd';
 import {SmileOutlined, FrownOutlined} from '@ant-design/icons';
 import Axios from 'axios';
