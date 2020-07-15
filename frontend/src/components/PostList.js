@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
+import { Alert } from 'antd';
 import Axios from 'axios'
 import Post from './Post'
-// import { useAppContext } from 'store';
+import { useAppContext } from 'store';
 
 const apiUrl = "http://localhost:8000/api/posts/"
 
 function PostList() {
-    // const { store: { jwtToken }, dispatch } = useAppContext();
+    const { 
+        store: { jwtToken }, 
+        dispatch 
+    } = useAppContext();
     const [postList, setPostList] = useState([]);
 
     useEffect(() => {
-        Axios.get(apiUrl)
+        const headers = { Authorization: `JWT ${jwtToken}`}
+        Axios.get(apiUrl, {headers})
         .then(response => {
             const { data } = response
             // console.log('loaded response:', response)
@@ -19,10 +24,13 @@ function PostList() {
         .catch(error => {
             // error.response;
         })
-     console.log('mounted')
+    //  console.log('mounted')
     }, []);
     return (
         <div>
+            {postList.length === 0 &&
+            <Alert type="warning" message="포스팅이 없습니다 :-(" />
+            }
             {postList.map(post => {
                  return <Post post={post} key={post.id} />
             })}

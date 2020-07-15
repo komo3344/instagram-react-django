@@ -12,7 +12,6 @@ export default function Login() {
   const history = useHistory();
   const [fieldErrors, setFieldErrors] = useState({});
 
-  console.log(location.state)
   const { from: loginRedirectUrl } = location.state || {
     from: { pathname: "/" }
   };
