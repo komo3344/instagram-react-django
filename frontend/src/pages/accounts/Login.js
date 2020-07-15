@@ -3,14 +3,14 @@ import {Card, Form, Input, Button, notification} from 'antd';
 import {SmileOutlined, FrownOutlined} from '@ant-design/icons';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import useLocalStorage from 'utils/useLocalStorage';
+import {useAppContext, setToken} from 'store'; 
 
 export default function Login() {
+    const {dispatch} = useAppContext();
     const history = useHistory();
     const [fieldErrors, setFieldErrors] = useState({});
-    const [jwtToken, setJwtToken] = useLocalStorage('jwtToken', "")
+    // const [jwtToken, setJwtToken] = useLocalStorage('jwtToken', "")
 
-    console.log("loaded jwtToken: ", jwtToken) 
     const onFinish = (values) => {
         async function fn(){
             const {username, password} = values
@@ -21,9 +21,11 @@ export default function Login() {
             try {
                 const response = await Axios.post("http://localhost:8000/accounts/token/", data)
                 const {data: { token: jwtToken }} = response
-                console.log("jwtToken: ", jwtToken)
+                 
+                dispatch(setToken(jwtToken))
 
-                setJwtToken(jwtToken);
+                // setJwtToken(jwtToken);
+
                 notification.open({
                     message:"로그인 성공",
                     icon: <SmileOutlined style={{color: "#108e99"}}/>
