@@ -22,12 +22,12 @@ class User(AbstractUser):
 
     @property
     def name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}".strip()
     
     @property
     def avatar_url(self):
         if self.avatar:
-            return self.avatar.url
+            return self.avatar.url 
         else:
             return resolve_url('pydenticon_image', self.username)
 

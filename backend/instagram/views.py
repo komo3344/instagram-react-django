@@ -23,4 +23,3 @@ class PostViewSet(ModelViewSet):
         qs = qs.filter(created_at__gte=timesince) # 최근 3일 글 목록
         # qs을 이어서 쓰면 체이닝되어 &조건으로 다 들어감
         return qs
-    

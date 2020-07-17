@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third party apps
     'corsheaders',
+    'django_pydenticon',
     'rest_framework',
     # local apps
     'accounts',
