@@ -9,7 +9,8 @@ from .serializers import PostSerializer
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
+    # 쿼리 갯수를 줄이는게 정답은 아니지만 포스팅 목록이 많아질 수록 쿼리가 많아지기 때문에 최적화가 필요
+    queryset = Post.objects.all().select_related("author").prefetch_related("tag_set", "like_user_set")
     serializer_class = PostSerializer
     # permission_classes = [AllowAny,] # FIXME: 인증적용
 
