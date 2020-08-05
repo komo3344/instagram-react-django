@@ -15,12 +15,20 @@ class PostViewSet(ModelViewSet):
     # permission_classes = [AllowAny,] # FIXME: 인증적용
 
     def get_queryset(self):
-        timesince = timezone.now() - timedelta(days=3) 
+        # timesince = timezone.now() - timedelta(days=3) 
         qs =  super().get_queryset()
         qs = qs.filter(
             Q(author=self.request.user) | # 자신이 작성한 글이나
             Q(author__in=self.request.user.following_set.all()) # 팔로잉 하고 있는 유저의 글
         )
-        qs = qs.filter(created_at__gte=timesince) # 최근 3일 글 목록
+        # qs = qs.filter(created_at__gte=timesince) # 최근 3일 글 목록
         # qs을 이어서 쓰면 체이닝되어 &조건으로 다 들어감
         return qs
+    
+    def perform_create(self, serializer):
+        # form에서는 이렇게 가능하지만.. drf에서 인자로 넘겨준다
+        # post = form.save(commit=False)
+        # post.author = self.request.user
+        # post.save()
+        serializer.save(author=self.request.user)
+        return super().perform_create(serializer)
