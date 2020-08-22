@@ -8,7 +8,7 @@ export default function Suggestion({suggestionUser, onFollowUser}) {
     return (
         <div className="suggestion">
             <div className="avatar">
-                <Avatar  size="small" icon={<img src={"http://localhost:8000" + avatar_url} alt={`${username}'s avatar`} />}/>
+                <Avatar  size="small" icon={<img src={avatar_url} alt={`${username}'s avatar`} />}/>
                 
                 {/* <UserOutlined /> */}
             </div>

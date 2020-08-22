@@ -1,8 +1,7 @@
 import React, {useMemo, useState, useEffect}from 'react';
 import {Button, Card} from 'antd';
 import Suggestion from './Suggestion'
-import useAxios from 'axios-hooks';
-import Axios from 'axios';
+import { useAxios, axiosInstance } from 'api';
 import {useAppContext} from 'store';
 import "./SuggestionList.scss";
 
@@ -13,7 +12,7 @@ export default function SuggestionList({style}) {
     
     const headers = { Authorization: `JWT ${jwtToken}`}
     const [{data: origUserList, loading, error}, refetch] = useAxios({
-        url: "http://localhost:8000/accounts/suggestions/",
+        url: "/accounts/suggestions/",
         headers,
     })
     // 랜더 될때마다 맵핑하기 때문에 비효율적인 로직 => useMemo 훅 사용
@@ -30,7 +29,7 @@ export default function SuggestionList({style}) {
     }, [origUserList]);
 
     const onFollowUser = (username) => {
-        Axios.post('http://localhost:8000/accounts/follow/', {username}, {headers})
+        axiosInstance.post('/accounts/follow/', {username}, {headers})
         .then(response => {
             setUserList(prevUserList => 
             prevUserList.map(user => 

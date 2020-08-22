@@ -26,7 +26,7 @@ function Post({ post, handleLike }) {
                 // FIXME: host지정을 로직으로 처리
                 avatar={
                     <Avatar size="large" 
-                            icon={<img src={`http://localhost:8000` + avatar_url} alt={username} />} 
+                            icon={<img src={avatar_url} alt={username} />} 
                     />
                 } 
                 title={location} 
